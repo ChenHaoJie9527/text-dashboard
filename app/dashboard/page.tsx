@@ -2,10 +2,11 @@ import { Card } from '@/app/ui/dashboard/cards';
 import RevenueChart from '../ui/dashboard/revenue-chart';
 import LatestInvoices from '../ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
-import { fetchRevenue } from '@/app/lib/data';
+import { fetchRevenue, fetchLatestInvoices } from '@/app/lib/data';
 
 export default async function Page() {
   const revenueData = await fetchRevenue();
+  const latestInvoicesData = await fetchLatestInvoices()
   return (
     <main className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
       <h1>Dashboard</h1>
@@ -21,7 +22,7 @@ export default async function Page() {
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
         <RevenueChart revenue={revenueData} />
-        {/* <LatestInvoices latestInvoices={latestInvoices} /> */}
+        <LatestInvoices latestInvoices={latestInvoicesData} />
       </div>
     </main>
   );
