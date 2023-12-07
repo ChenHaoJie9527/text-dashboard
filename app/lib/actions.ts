@@ -2,7 +2,8 @@
 
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
-
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 const FormSchema = z.object({
   id: z.string(),
@@ -11,6 +12,8 @@ const FormSchema = z.object({
   status: z.enum(['pending', 'paid']),
   date: z.string(),
 });
+
+const PATH = '/dashboard/invoices';
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 
@@ -26,4 +29,8 @@ export async function createInvoice(formData: FormData) {
     INSERT INTO invoices (customer_id, amount, status, date)
     VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
   `;
+  // 清除路由缓存
+  revalidatePath(PATH);
+  // 重定向
+  redirect(PATH);
 }
