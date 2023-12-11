@@ -6,12 +6,17 @@ import Search from '@/app/ui/search';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { fetchInvoicesPages } from '@/app/lib/data';
 import React, { Suspense } from 'react';
+import { Metadata } from 'next';
 interface Props {
   searchParams?: {
     query?: string;
     page?: string;
   };
 }
+
+export const metadata: Metadata = {
+  title: 'Invoices',
+};
 
 const Page = async ({ searchParams }: Props) => {
   const query = searchParams?.query || '';

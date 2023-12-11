@@ -3,8 +3,11 @@ import { inter } from './ui/fonts';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '仪表盘',
-  description: '这是next.js实现仪表盘',
+  title: {
+    template: '%s | Acme Dashboard',
+    default: 'Acme Dashboard',
+  },
+  description: 'The official Next.js Learn Dashboard built with App Router.',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
 };
 
